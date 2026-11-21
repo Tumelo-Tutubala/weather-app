@@ -12,21 +12,22 @@ export default function App() {
   const [weather, setWeather] = useState(null)
   const [error, setError] = useState("")
   const [loading, isLoading] = useState(false)
-  const [place, setPlace]=useState(null)
+  const [place, setPlace] = useState(null)
 
   async function searchCity(city) {
     isLoading(true)
-  setError("")
-  setWeather(null)
-  setPlace(null)
-    
+    setError("")
+    setWeather(null)
+    setPlace(null)
+
     const geoRes = await fetch(
       `https://geocoding-api.open-meteo.com/v1/search?name=${city}&count=1`
     )
     const geoData = await geoRes.json()
-     if (!geoData.results) {
-    setError("City not found")
-    isLoading(false)}
+    if (!geoData.results) {
+      setError("City not found")
+      isLoading(false)
+    }
 
     const place = geoData.results[0]
 
@@ -35,11 +36,11 @@ export default function App() {
     )
     const weatherData = await weatherRes.json()
 
- 
+
 
     setWeather(weatherData)
-     setPlace(place)
-  isLoading(false)
+    setPlace(place)
+    isLoading(false)
   }
 
   return (
@@ -51,7 +52,13 @@ export default function App() {
 
       {loading && <p>Loading...</p>}
       {error && <p>{error}</p>}
-      {weather && <WeatherCard weather={weather}  place={place}/>}
+
+      {weather && (
+        <>
+          <WeatherCard weather={weather} place={place} />
+          <Forecast daily={weather.daily} />
+        </>
+      )}
     </div>
   );
 
