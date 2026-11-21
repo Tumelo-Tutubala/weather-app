@@ -3,6 +3,7 @@ import Forecast from "./components/Forecast"
 import SearchBar from "./components/SearchBar"
 import SearchResults from "./components/WeatherCard"
 import WeatherCard from "./components/WeatherCard"
+import "./App.css"
 
 
 
@@ -13,10 +14,24 @@ export default function App() {
   const [place, setPlace] = useState(null)
 
   async function searchCity(city) {
+
+    if (!city.trim()) {
+  setError("Please enter a city name")
+  return
+}
     isLoading(true)
     setError("")
     setWeather(null)
     setPlace(null)
+
+      try {
+    // ...your fetch code, including the results check
+  } catch (err) {
+    setError("Something went wrong. Check your connection.")
+  } finally {
+    isLoading(false)
+  }
+
 
     const geoRes = await fetch(
       `https://geocoding-api.open-meteo.com/v1/search?name=${city}&count=1`
@@ -25,6 +40,7 @@ export default function App() {
     if (!geoData.results) {
       setError("City not found")
       isLoading(false)
+      return
     }
 
     const place = geoData.results[0]
@@ -49,7 +65,10 @@ console.log(weatherData.daily)
       />
 
       {loading && <p>Loading...</p>}
-      {error && <p>{error}</p>}
+
+<div className="error-banner" >
+  <strong></strong>{error && <p className="error">{error}</p>}
+</div>
 
       {weather && (
         <>
