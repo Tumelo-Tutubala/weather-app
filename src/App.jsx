@@ -1,7 +1,5 @@
 import { useState, useEffect } from "react"
-import "./components/Forecast"
-import "./components/SearchBar"
-import "./components/WeatherCard"
+import Forecast from "./components/Forecast"
 import SearchBar from "./components/SearchBar"
 import SearchResults from "./components/WeatherCard"
 import WeatherCard from "./components/WeatherCard"
@@ -32,10 +30,10 @@ export default function App() {
     const place = geoData.results[0]
 
     const weatherRes = await fetch(
-      `https://api.open-meteo.com/v1/forecast?latitude=${place.latitude}&longitude=${place.longitude}&current=temperature_2m,wind_speed_10m&timezone=auto`
+      `https://api.open-meteo.com/v1/forecast?latitude=${place.latitude}&longitude=${place.longitude}&current=temperature_2m,wind_speed_10m&daily=temperature_2m_max,temperature_2m_min,precipitation_probability_max&timezone=auto`
     )
     const weatherData = await weatherRes.json()
-
+console.log(weatherData.daily)
 
 
     setWeather(weatherData)
