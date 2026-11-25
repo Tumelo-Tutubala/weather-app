@@ -4,7 +4,7 @@ export default function SearchBar({ onSearch }) {
     const [city, setCity] = useState('');
 
     return (
-        <div  className="seachbar">
+        <div  className="SearchBar">
             <input
 
                 value={city}

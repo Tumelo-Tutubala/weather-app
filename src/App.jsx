@@ -19,20 +19,14 @@ export default function App() {
   setError("Please enter a city name")
   return
 }
-    isLoading(true)
+   
+
+      try {
+    
+ isLoading(true)
     setError("")
     setWeather(null)
     setPlace(null)
-
-      try {
-    // ...your fetch code, including the results check
-  } catch (err) {
-    setError("Something went wrong. Check your connection.")
-  } finally {
-    isLoading(false)
-  }
-
-
     const geoRes = await fetch(
       `https://geocoding-api.open-meteo.com/v1/search?name=${city}&count=1`
     )
@@ -51,10 +45,19 @@ export default function App() {
     const weatherData = await weatherRes.json()
 console.log(weatherData.daily)
 
-
-    setWeather(weatherData)
+ setWeather(weatherData)
     setPlace(place)
     isLoading(false)
+  } catch (err) {
+    setError("Something went wrong. Check your connection.")
+  } finally {
+    isLoading(false)
+   
+  }
+
+
+
+    
   }
 
   return (
