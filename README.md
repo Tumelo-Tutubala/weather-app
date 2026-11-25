@@ -2,7 +2,7 @@
 
 A responsive weather app built with React. Search for any city to see the current weather and a 7-day forecast.
 
-**Live demo:** [add link after deploying]
+**Live demo:** [https://weather-app-alphatech.vercel.app/]
 
 
 
@@ -32,4 +32,4 @@ npm run dev
 
 ## What I learned
 
-- [Write 2 or 3 honest lines in your own words, e.g. fetching data with useEffect, handling loading and error states, making a layout responsive]
+- [fetching data with useEffect, handling loading and error states, making a layout responsive]
